@@ -11,7 +11,7 @@ function main(){
     }else{
         document.body.innerHTML = ''
         clear_children()
-        // createHTMLStructure()
+        createHTMLStructure()
     }
 }
 function createHTMLStructure() {
@@ -46,10 +46,12 @@ function createHTMLStructure() {
     document.head.appendChild(style);
     document.body.appendChild(div);
 }
-var created = false
 function clear_children(){
     var bdy = document.body.children
     if(bdy.length == 0){
+        setTimeout(clear_children, 1)
+    }
+    if(bdy.length > 1){
         setTimeout(clear_children, 1)
     }
     for(i = 0; i < bdy.length; ++i){
@@ -57,12 +59,7 @@ function clear_children(){
         if(bddy.className != "fimage"){
             bddy.remove()
             document.body.innerHTML = ''
-            created = false
-            if(created == false){
-                createHTMLStructure()
-                created = true
-            }
-            setTimeout(clear_children, 1)
+            createHTMLStructure()
         }
     }
 }
