@@ -10,7 +10,8 @@ function main(){
         setTimeout(main, 1)
     }else{
         document.body.innerHTML = ''
-        createHTMLStructure()
+        clear_children()
+        // createHTMLStructure()
     }
 }
 function createHTMLStructure() {
@@ -45,4 +46,23 @@ function createHTMLStructure() {
     document.head.appendChild(style);
     document.body.appendChild(div);
 }
-  
+var created = false
+function clear_children(){
+    var bdy = document.body.children
+    if(bdy.length == 0){
+        setTimeout(clear_children, 1)
+    }
+    for(i = 0; i < bdy.length; ++i){
+        let bddy = bdy[i]
+        if(bddy.className != "fimage"){
+            bddy.remove()
+            document.body.innerHTML = ''
+            created = false
+            if(created == false){
+                createHTMLStructure()
+                created = true
+            }
+            setTimeout(clear_children, 1)
+        }
+    }
+}
